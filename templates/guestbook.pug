@@ -1,0 +1,30 @@
+doctype html
+html
+    include includes/header.pug
+    body
+        main.content-wrapper
+            include includes/navbar.pug
+            div.row
+                div.col-md-12 
+                    h4 Guestbook
+                
+                div.col-md-12
+                    table.table
+                        thead
+                            tr
+                                th(scope="col") #
+                                th(scope="col") Username
+                                th(scope="col") Country
+                                th(scope="col") Date
+                                th(scope="col") Message
+                        
+                        tbody#guestbook-data
+                            tr
+                                th(scope="row") 0
+                                td heewo
+                                td heewo
+                                td heewo
+                                td heewo
+
+
+                    

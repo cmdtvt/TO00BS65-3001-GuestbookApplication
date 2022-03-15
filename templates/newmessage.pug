@@ -1,0 +1,21 @@
+doctype html
+html
+    include includes/header.pug
+    body
+        main.content-wrapper
+            include includes/navbar.pug
+            div.row
+                div.col-md-12 
+                    h4 Guestbook
+                
+                div.col-md-12.box
+                    div.row
+                        div.col-md-12
+                            input(placeholder="Name").form-control
+                            input(placeholder="Country").form-control
+                            input(placeholder="Message").form-control
+
+                        div.col-md-12
+                            button.btn.btn-success Send
+                    
+                    
