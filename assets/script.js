@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded",function(){
             break;
 
         case "newmessage":
-            //test()
+            prepareAjaxForm();
             break;
 
         case "ajaxmessage":
@@ -59,6 +59,28 @@ function loadGuestbook(anchor="main") {
     .catch(function (e) {
         console.log(e)
     })
+}
 
+function prepareAjaxForm(){
+    console.log("Preparing")
+    
+    document.querySelector("#submit-ajax").addEventListener("click",function(){
+        var name = document.querySelector("#name").value;
+        var country = document.querySelector("#country").value;
+        var message = document.querySelector("#message").value;
+        console.log(name)
+        /*
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", '/ajaxmessage', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify({
+            name:name,
+            country:country,
+            message:message
+        }));
+        */
+        
+        $.post( "/ajaxmessage", {name:name, country:country, message:message});
 
+    })
 }
