@@ -21,7 +21,6 @@ document.addEventListener("DOMContentLoaded",function(){
     }
 });
 
-
 function test(anchor="main") {
     anchor = document.querySelector(anchor);
     anchor.innerHTML = "This is a test message";
@@ -30,7 +29,7 @@ function test(anchor="main") {
 function loadGuestbook(anchor="main") {
     anchor = document.querySelector(anchor);
     
-
+    //Request things from the json api
     fetch('/api/json').then(response => {
         if (!response.ok) {
             throw new Error("HTTP error " + response.status);
@@ -40,6 +39,7 @@ function loadGuestbook(anchor="main") {
     .then(json => {
 
         html = ""
+        //Loop all data from json into a tempalte and render on page.
         for (const d of json) {
             template = `
             <tr>

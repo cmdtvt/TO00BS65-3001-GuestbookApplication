@@ -25,25 +25,72 @@ app.get('/newmessage', (req, res) => {
 
 app.post('/ajaxmessage', (req, res) => {
     data = req.body
-    console.log(data.name)
     if(data.name === " " && data.country === " " && data.message === " ") {
         res.send({
             success: false,
-            reason: "values not set"
+            reason: "unknown reason"
         })
+
     } else {
-        console.log(data.name, data.country, data.message);
-        res.send({
-            success: true
+
+        file.readFile('./data.json', 'utf8' , (err, fileData) => {
+            if (err) {
+                console.error(err)
+                res.send({
+                    success: false,
+                    reason: "Failed to read the file."
+                })
+                return
+            } else {
+                console.log("Readubg data!")
+
+                //Convert loaded string into a json object
+                const jsonf = JSON.parse(fileData);
+
+                //Get date and remove extra things from it.
+                var today = new Date();
+                var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+
+                //Add new data into the array
+                jsonf.push({
+                    id:jsonf.length,
+                    username:data.name,
+                    country:data.country,
+                    message:data.message,
+                    date:date
+                })
+                
+                //Convert json object back into a string and save it.
+                file.writeFile("./data.json", JSON.stringify(jsonf), function(err) {
+                    console.log("Saving!")
+                    if(err) {
+                        res.send({
+                            success: false,
+                            reason: "Failed to save the file."
+                        })
+                        return console.log(err);
+                    } else {
+                        res.send({
+                            success: true,
+                            reason: "values not set"
+                        })
+                    }
+                }); 
+                
+            }
         })
     }
-    //res.sendStatus(200);
 });
 
 //Serve json file this way so we can more easily control it in the future.
 app.get('/api/json', (req, res) => {
-    var file = require('./data.json');
-    res.send(file)
+    file.readFile('./data.json', 'utf8' , (err, data) => {
+        if (err) {
+            console.error(err)
+            return
+        }
+        res.send(data)
+    })
 })
 
 app.listen(port, () => {

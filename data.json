@@ -1,7 +1,1 @@
-[
-    {"id":0,"username":"Sofia","country":"Finland","date":"date","message":"Hello people of the world!"},
-    {"id":1,"username":"Sofia","country":"Finland","date":"date","message":"Hello people of the world!"},
-    {"id":2,"username":"Sofia","country":"Finland","date":"date","message":"Hello people of the world!"},
-    {"id":3,"username":"Sofia","country":"Finland","date":"date","message":"Hello people of the world!"},
-    {"id":4,"username":"Sofia","country":"Finland","date":"date","message":"Hello people of the world!"}
-]
+[{"id":0,"username":"Sofia","country":"Finland","message":"Oli ihan kivat bileet :)","date":"2022-3-16"},{"id":1,"username":"Tuusa","country":"Finland","message":"oispa ollu keksejä mutta oli kivaa!","date":"2022-3-16"}]
