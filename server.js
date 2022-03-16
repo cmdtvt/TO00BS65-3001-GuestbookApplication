@@ -24,8 +24,20 @@ app.get('/newmessage', (req, res) => {
 })
 
 app.post('/ajaxmessage', (req, res) => {
-    console.log(req.body)
-    res.sendStatus(200);
+    data = req.body
+    console.log(data.name)
+    if(data.name === " " && data.country === " " && data.message === " ") {
+        res.send({
+            success: false,
+            reason: "values not set"
+        })
+    } else {
+        console.log(data.name, data.country, data.message);
+        res.send({
+            success: true
+        })
+    }
+    //res.sendStatus(200);
 });
 
 //Serve json file this way so we can more easily control it in the future.

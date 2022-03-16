@@ -65,22 +65,62 @@ function prepareAjaxForm(){
     console.log("Preparing")
     
     document.querySelector("#submit-ajax").addEventListener("click",function(){
+
+        //Get all input values
         var name = document.querySelector("#name").value;
         var country = document.querySelector("#country").value;
         var message = document.querySelector("#message").value;
-        console.log(name)
-        /*
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", '/ajaxmessage', true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.send(JSON.stringify({
-            name:name,
-            country:country,
-            message:message
-        }));
-        */
-        
-        $.post( "/ajaxmessage", {name:name, country:country, message:message});
+
+        //Do ajax call to /ajaxmessage
+        $.ajax({
+            url : "/ajaxmessage",
+            type: "POST",
+            data : {
+                name:name,
+                country:country,
+                message:message
+            },
+            success: function(data, textStatus, jqXHR) {
+
+                /*if sent ajaxpost is successful the server will respond with dictionary {success:true,reason:""}
+                
+                Depending on success variable we can display green or red alert box. If we display the red one we will also add passed reason that has the error message from the server side.
+                
+                */
+
+                ab = document.querySelector("#alertbox")
+                if(data.success == true) {
+                    ab.classList.remove("hide")
+                    ab.classList.add("alert-success")
+                    ab.classList.remove("alert-danger")
+                    ab.innerHTML = "Saving successful!"
+                    
+                    //We clear the inputs if ajaxpost was successful
+                    document.querySelector("#name").value = "";
+                    document.querySelector("#country").value = "";
+                    document.querySelector("#message").value = "";
+
+                } else {
+                    ab.classList.remove("hide")
+                    ab.classList.remove("alert-success")
+                    ab.classList.add("alert-danger")
+                    ab.innerHTML = "Saving failed: "+data.reason
+                }
+
+                //Hide the alert box after some seconds
+                setTimeout(function() {
+                    ab.classList.add("hide")
+                }, 15000);
+
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                ab.classList.remove("hide")
+                ab.classList.remove("alert-success")
+                ab.classList.add("alert-danger")
+                ab.innerHTML = "Saving failed: Problem sending Ajax"
+            }
+        });
 
     })
 }

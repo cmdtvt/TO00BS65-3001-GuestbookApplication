@@ -16,6 +16,10 @@ body {
     background-size: 100%;
 }
 
+.hide {
+    display: none;
+}
+
 .content-wrapper {
     margin-left: auto;
     margin-right: auto;
